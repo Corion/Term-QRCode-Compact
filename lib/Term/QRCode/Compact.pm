@@ -11,7 +11,7 @@ our @EXPORT_OK = ('qr_code_as_text');
 
 our $VERSION = '0.01';
 
-=utf8
+=encoding utf8
 
 =head1 NAME
 
