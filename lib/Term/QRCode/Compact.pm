@@ -188,15 +188,13 @@ sub qr_code_as_text( %options ) {
             push @$line, $is_black;
         }
         push @lines, $line;
-        
+
     }
-    #$res = compress_lines( \@lines, 1, 1, $charset_ascii_1x1 );
-    #$res = compress_lines( \@lines, 1, 1, $charset_ascii_2x1 );
     return compress_lines( \@lines,
-	    $charset->{xfactor},
-		$charset->{yfactor},
-		$charset->{charset},
-	);
+        $charset->{xfactor},
+        $charset->{yfactor},
+        $charset->{charset},
+    );
 }
 
 1;
