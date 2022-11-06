@@ -1,5 +1,4 @@
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Corion/Term-QRCode-Compact?branch=master&svg=true)](https://ci.appveyor.com/project/Corion/Term-QRCode-Compact)
 [![Windows](https://github.com/Corion/Term-QRCode-Compact/workflows/windows/badge.svg)](https://github.com/Corion/Term-QRCode-Compact/actions?query=workflow%3Awindows)
 [![MacOS](https://github.com/Corion/Term-QRCode-Compact/workflows/macos/badge.svg)](https://github.com/Corion/Term-QRCode-Compact/actions?query=workflow%3Amacos)
 [![Linux](https://github.com/Corion/Term-QRCode-Compact/workflows/linux/badge.svg)](https://github.com/Corion/Term-QRCode-Compact/actions?query=workflow%3Alinux)
@@ -133,15 +132,3 @@ Options
 [Text::QRCode](https://metacpan.org/pod/Text%3A%3AQRCode) - needs an update to support `.` in `@INC`
 
 [Term::QRCode](https://metacpan.org/pod/Term%3A%3AQRCode) - needs [Text::QRCode](https://metacpan.org/pod/Text%3A%3AQRCode)
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 14:
-
-    Unknown directive: =utf8
-
-- Around line 25:
-
-    Non-ASCII character seen before =encoding in '██████████████'. Assuming UTF-8
