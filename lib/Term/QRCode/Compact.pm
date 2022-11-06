@@ -104,39 +104,43 @@ our $VERSION;
 =cut
 
 our %charset = (
-    ascii_1x1 => {
-		xfactor => 1,
-		yfactor => 1,
-		charset => [ ' ', '*' ],
-	},
-    ascii_2x1 => {
-		xfactor => 1,
-		yfactor => 1,
-		charset => [ '  ', '##' ],
-	},
-    utf8_1x2 => {
-		xfactor => 1,
-		yfactor => 2,
-		charset => [ ' ', '▀' ,
-					 '▄', '█' ],
-	},
+    ascii => {
+    #    ascii_1x1 => {
+    #       xfactor => 1,
+    #       yfactor => 1,
+    #       charset => [ ' ', '#' ],
+    #   },
+        '2x1' => {
+            xfactor => 1,
+            yfactor => 1,
+            charset => [ '  ', '##' ],
+        },
+    },
+    utf8 => {
+        '1x2' => {
+            xfactor => 1,
+            yfactor => 2,
+            charset => [ ' ', '▀' ,
+                        '▄', '█' ],
+        },
+    },
 );
 
 sub compress_lines( $lines, $xfactor, $yfactor, $charset ) {
     my $res;
-    
+
     my $yofs = 0;
-    
+
     while( $yofs < @$lines ) {
         my $xofs = 0;
-		my $cols = @{$lines->[$yofs]};
+        my $cols = @{$lines->[$yofs]};
         while ($xofs < $cols) {
             my $bits = 0;
             for my $l (0..$yfactor-1) {
                 for my $c (0..$xfactor-1) {
                     my $bitpos = $l*$xfactor + $c;
-					#say sprintf '%02d x %02d %04b %d %04b', $xofs+$c, $yofs+$l, $bitpos, $lines->[$yofs+$l]->[$xofs+$c], $bits;
-					
+                    #say sprintf '%02d x %02d %04b %d %04b', $xofs+$c, $yofs+$l, $bitpos, $lines->[$yofs+$l]->[$xofs+$c], $bits;
+
                     $bits += $lines->[$yofs+$l]->[$xofs+$c] << $bitpos;
                 }
             }
@@ -146,12 +150,12 @@ sub compress_lines( $lines, $xfactor, $yfactor, $charset ) {
         $yofs += $yfactor;
         $res .= "\n";
     }
-    
+
     return $res
 }
 
 sub qr_code_as_text( %options ) {
-	$options{charset} //= 'utf8_1x2';
+    $options{charset} //= 'utf8_1x2';
 
     my $qrcode = Imager::QRCode->new(
         size          => 2,
@@ -162,9 +166,15 @@ sub qr_code_as_text( %options ) {
         lightcolor    => Imager::Color->new(255, 255, 255),
         darkcolor     => Imager::Color->new(0, 0, 0),
     );
-	
-	my $charset = $charset{ $options{ charset }};
-    
+
+    my $charset = $charset{ $options{ charset }};
+
+    my $dimensions = $options{ dimensions };
+    if( ! $dimensions ) {
+        ($dimensions) = keys (%$charset);
+    }
+    $charset = $charset->{ $dimensions };
+
     my $img = $qrcode->plot($options{text});
     my $rows = $img->getheight;
     my $cols = $img->getwidth;
