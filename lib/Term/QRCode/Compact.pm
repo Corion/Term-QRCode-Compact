@@ -154,8 +154,46 @@ sub compress_lines( $lines, $xfactor, $yfactor, $charset ) {
     return $res
 }
 
+=head1 FUNCTIONS
+
+=head2 C<qr_code_as_text>
+
+  say qr_code_as_text( text => 'hello' );
+
+Returns a string with newlines that represents
+the QR-Code.
+
+Options
+
+=over 4
+
+=item B<text>
+
+The text to turn into a QR-Code
+
+=item B<charset>
+
+  charset => 'utf8',
+
+The charset to use when rendering the QR-Code,
+default is C<utf8>.
+
+=item B<dimensions>
+
+Optional
+
+  dimensions => '1x2',
+
+The number of pixels per returned character.
+Currently for ASCII the dimensions the dimensions
+are C<2x1> for ascii and C<2x1> for C<utf8>.
+
+=back
+
+=cut
+
 sub qr_code_as_text( %options ) {
-    $options{charset} //= 'utf8_1x2';
+    $options{charset} //= 'utf8';
 
     my $qrcode = Imager::QRCode->new(
         size          => 2,

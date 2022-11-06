@@ -11,6 +11,16 @@ GetOptions(
     'charset|c=s' => \my $charset,
 );
 
+=head1 NAME
+
+qrencode - qr-encode input
+
+=head1 OPTIONS
+
+charset|c - output charset, allowed are ascii or utf8
+
+=cut
+
 $charset //= 'utf8';
 
 if( $^O eq 'MSWin32' ) {
@@ -24,11 +34,3 @@ print qr_code_as_text(
       text => $ARGV[0]
     , charset => $charset
 );
-
-=head1 SEE ALSO
-
-L<Text::QRCode> - needs an update to support C<.> in C<@INC>
-
-L<Term::QRCode> - needs L<Text::QRCode>
-
-=cut
